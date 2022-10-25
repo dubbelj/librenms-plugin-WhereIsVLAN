@@ -110,30 +110,30 @@ order by ports.ifName
 ";
 		$result=array();
 		foreach( dbFetchRows($query) as $line){
-			$device_id=$line[device_id];
-			$port_id=$line[port_id];
-			$vlan=$line[vlan];
-			$untagged=$line[untagged];
-			$vlan_name=$line[vlan_name];
-			$sysName=$line[sysName];
-			$hostname=$line[hostname];
-			$ifName=$line[ifName];
-			$ifAlias=$line[ifAlias];
-			$ifSpeed=$line[ifSpeed];
-			$ifDuplex=$line[ifDuplex];
-			$ifOperStatus=$line[ifOperStatus];
-			$ifAdminStatus=$line[ifAdminStatus];
+			$device_id=$line['device_id'];
+			$port_id=$line['port_id'];
+			$vlan=$line['vlan'];
+			$untagged=$line['untagged'];
+			$vlan_name=$line['vlan_name'];
+			$sysName=$line['sysName'];
+			$hostname=$line['hostname'];
+			$ifName=$line['ifName'];
+			$ifAlias=$line['ifAlias'];
+			$ifSpeed=$line['ifSpeed'];
+			$ifDuplex=$line['ifDuplex'];
+			$ifOperStatus=$line['ifOperStatus'];
+			$ifAdminStatus=$line['ifAdminStatus'];
 
-			$result[$device_id][sysName]=$sysName;
-			$result[$device_id][hostname]=$hostname;
-			$result[$device_id][vlan][$vlan][vlan_name]=$vlan_name;
-			$result[$device_id][vlan][$vlan][ports][$port_id][untagged]=$untagged;
-			$result[$device_id][vlan][$vlan][ports][$port_id][ifName]=$ifName;
-			$result[$device_id][vlan][$vlan][ports][$port_id][ifAlias]=$ifAlias;
-			$result[$device_id][vlan][$vlan][ports][$port_id][ifSpeed]=$ifSpeed;
-			$result[$device_id][vlan][$vlan][ports][$port_id][ifDuplex]=$ifDuplex;
-			$result[$device_id][vlan][$vlan][ports][$port_id][ifOperStatus]=$ifOperStatus;
-			$result[$device_id][vlan][$vlan][ports][$port_id][ifAdminStatus]=$ifAdminStatus;
+			$result[$device_id]['sysName']=$sysName;
+			$result[$device_id]['hostname']=$hostname;
+			$result[$device_id]['vlan'][$vlan]['vlan_name']=$vlan_name;
+			$result[$device_id]['vlan'][$vlan]['ports'][$port_id]['untagged']=$untagged;
+			$result[$device_id]['vlan'][$vlan]['ports'][$port_id]['ifName']=$ifName;
+			$result[$device_id]['vlan'][$vlan]['ports'][$port_id]['ifAlias']=$ifAlias;
+			$result[$device_id]['vlan'][$vlan]['ports'][$port_id]['ifSpeed']=$ifSpeed;
+			$result[$device_id]['vlan'][$vlan]['ports'][$port_id]['ifDuplex']=$ifDuplex;
+			$result[$device_id]['vlan'][$vlan]['ports'][$port_id]['ifOperStatus']=$ifOperStatus;
+			$result[$device_id]['vlan'][$vlan]['ports'][$port_id]['ifAdminStatus']=$ifAdminStatus;
 		}
 	}
 }
@@ -158,28 +158,28 @@ if ($result){
 </style>
 ';
 	foreach($result as $device_id => $device_data){
-		$sysName=$device_data[sysName];
-		$hostname=$device_data[hostname];
+		$sysName=$device_data['sysName'];
+		$hostname=$device_data['hostname'];
 		$n=0;
 		$format="tg-head" ; # Set row format
 		$table="<table class='tg'><tr><th colspan=7 class='tg-9hbo'>$sysName ($hostname) </th></tr>";
 		$table.="<tr class=\"$format\"><td>vlan (name)<td>ifName, ifAlias<td>type<td>ifOperStatus<td>ifAdminStatus<td>ifSpeed<td>ifDuplex</tr>";
-		foreach($device_data[vlan] as $vlan => $vlan_data){
+		foreach($device_data['vlan'] as $vlan => $vlan_data){
 			$format= ( $n++ % 2 ) ? "tg-q8xn" : "tg-yw4l" ; # Set row format
-			$vlan_name=$vlan_data[vlan_name];
-			$numinterfaces=count($vlan_data[ports]);
+			$vlan_name=$vlan_data['vlan_name'];
+			$numinterfaces=count($vlan_data['ports']);
 			$numinterfaces++;
 			$table.="<tr class=\"$format\" ><td rowspan='$numinterfaces' >$vlan ($vlan_name)</td></tr>\n";
-			foreach($vlan_data[ports] as $port_id => $port_data){
-				$ifName=$port_data[ifName];
-				$ifAlias=$port_data[ifAlias];
-				$untagged=$port_data[untagged];
-				$ifSpeed=$port_data[ifSpeed];
+			foreach($vlan_data['ports'] as $port_id => $port_data){
+				$ifName=$port_data['ifName'];
+				$ifAlias=$port_data['ifAlias'];
+				$untagged=$port_data['untagged'];
+				$ifSpeed=$port_data['ifSpeed'];
 				$ifSpeed=$ifSpeed/1000000;
 				$ifSpeed.=" Mbit";
-				$ifDuplex=$port_data[ifDuplex];
-				$ifOperStatus=$port_data[ifOperStatus];
-				$ifAdminStatus=$port_data[ifAdminStatus];
+				$ifDuplex=$port_data['ifDuplex'];
+				$ifOperStatus=$port_data['ifOperStatus'];
+				$ifAdminStatus=$port_data['ifAdminStatus'];
 				if ($untagged){
 					$type="access port";
 				}else{

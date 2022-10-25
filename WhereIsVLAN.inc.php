@@ -139,11 +139,11 @@ order by ports.ifName
 }
 
 $form="<form action='/plugin/v1/$GLOBALS[plugin_name]' method='post'>";
-$form.="Enter vlan id to search for:<input type=\"textbox\" size=50 name=\"vlan_to_search\" value=\"$vlan_to_search\" ><br>\n";
+$form.="Enter vlan id to search for:<input class=\"form-control\" type=\"textbox\" size=50 name=\"vlan_to_search\" value=\"$vlan_to_search\" ><br>\n";
 $form.="Exclude access ports:<input type=\"checkbox\" name=\"exclude_untagged\" value=\"1\" $exclude_untagged_checked><br>\n";
 $form.="Exclude trunk ports:<input type=\"checkbox\" name=\"exclude_tagged\" value=\"1\" $exclude_tagged_checked><br>\n";
 $form.=csrf_field();
-$form.='<input name="search" value="search" type="submit"><br>';
+$form.='<input name="search" value="search" type="submit" class="btn btn-default"><br>';
 print $form;
 
 if ($result){

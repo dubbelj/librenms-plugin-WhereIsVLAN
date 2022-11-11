@@ -105,7 +105,7 @@ where
 	$exclude_tagged
 	$exclude_untagged
 	$vlan_to_search_statement
-order by ports.ifName
+order by ports_vlans.device_id, ports.ifName
 ;
 ";
 		$result=array();

@@ -1,3 +1,7 @@
+<style type="text/css">
+form {margin: auto;width: 50%;}
+.btn {margin-bottom: 5px;}
+</style>
 <?php
 global $plugin_name;
 $plugin_name="WhereIsVLAN";
